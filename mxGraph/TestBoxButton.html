@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title>mxGraph 의 박스에 이미지 추가</title>
+
+	<script>
+		mxBasePath = "src";
+	</script>
+	<script src="src/js/mxClient.js"></script>
+	<script>
+
+		function main( container )
+		{
+			if( mxClient.isBrowserSupported() )
+			{
+				var clsGraph = new mxGraph( container );
+
+				var style = clsGraph.getStylesheet().getDefaultVertexStyle();
+
+				// 이미지를 보여주기 위해서 label 로 수정한다.
+				style[mxConstants.STYLE_SHAPE] = 'label';
+
+				// 이미지 옆에 텍스트를 붙여서 보여주도록 수정한다.
+				style[mxConstants.STYLE_VERTICAL_ALIGN] = mxConstants.ALIGN_MIDDLE;
+				style[mxConstants.STYLE_ALIGN] = mxConstants.ALIGN_LEFT;
+				style[mxConstants.STYLE_SPACING_LEFT] = 54;
+
+				// 이미지 크기를 수정한다.
+				style[mxConstants.STYLE_IMAGE_WIDTH] = '48';
+				style[mxConstants.STYLE_IMAGE_HEIGHT] = '48';
+
+				new mxRubberband( clsGraph );
+				var clsParent = clsGraph.getDefaultParent();
+
+				clsGraph.getModel().beginUpdate();
+
+				// 박스를 추가한다.
+				var v1 = clsGraph.insertVertex( clsParent, null, "첫번째", 20, 20, 140, 60, 'image=editors/images/house.png' );
+
+				// 박스 하단에 이미지 버튼을 추가한다.
+				var overlay = new mxCellOverlay( new mxImage('editors/images/add.png', 24, 24), 'Add child');
+				overlay.cursor = 'hand';
+				overlay.align = mxConstants.ALIGN_CENTER;
+				overlay.addListener( mxEvent.CLICK, mxUtils.bind( this, function(sender, evt)
+				{
+					alert( 'add child' );
+				}));
+
+				clsGraph.addCellOverlay( v1, overlay );
+
+				clsGraph.getModel().endUpdate();
+			}
+		}
+
+	</script>
+</head>
+<body onload="main( document.getElementById('lyGraph') )">
+<div id="lyGraph" style="width: 400px; height: 400px; ">
+</div>
+</body>
+</html>
