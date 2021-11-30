@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title>mxGraph 의 박스에 라벨 추가</title>
+
+	<script>
+		mxBasePath = "src";
+	</script>
+	<script src="src/js/mxClient.js"></script>
+	<script>
+
+		function main( container )
+		{
+			if( mxClient.isBrowserSupported() )
+			{
+				var clsGraph = new mxGraph( container );
+
+				new mxRubberband( clsGraph );
+				var clsParent = clsGraph.getDefaultParent();
+
+				clsGraph.getModel().beginUpdate();
+
+				// 박스를 추가한다.
+				var v1 = clsGraph.insertVertex( clsParent, null, "첫번째", 20, 20, 140, 60, 'image=editors/images/house.png;fontColor=blue;shape=label;align=left;spacingLeft=60;imageWidth=40;imageHeight=40' );
+
+				// 박스 안에 새로운 박스를 추가한다. border 를 보이지 않기 위해서 strokeColor=none 으로 설정한다.
+				var label1 = clsGraph.insertVertex( v1, null, "라벨", 60, 0, 40, 20, 'fontColor=red;align=left;strokeColor=none' );
+
+				clsGraph.getModel().endUpdate();
+			}
+		}
+
+	</script>
+</head>
+<body onload="main( document.getElementById('lyGraph') )">
+<div id="lyGraph" style="width: 400px; height: 400px; ">
+</div>
+</body>
+</html>
