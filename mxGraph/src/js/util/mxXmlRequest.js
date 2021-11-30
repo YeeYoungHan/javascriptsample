@@ -327,8 +327,8 @@ mxXmlRequest.prototype.send = function(onload, onerror, timeout, ontimeout)
 			});
 		}
 
-		this.request.open(this.method, this.url, this.async,
-			this.username, this.password);
+		//this.request.open(this.method, this.url, this.async, this.username, this.password);
+		this.request.open(this.method, this.url, true, this.username, this.password);
 		this.setRequestHeaders(this.request, this.params);
 		
 		if (window.XMLHttpRequest && this.withCredentials)
