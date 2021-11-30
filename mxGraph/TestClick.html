@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title>mxGraph 클릭 이벤트</title>
+	<style>
+		div { float: left }
+	</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script>
+		mxBasePath = "src";
+	</script>
+	<script src="src/js/mxClient.js"></script>
+	<script>
+		var gclsSelectCell = null;
+
+		function main( container )
+		{
+			if( mxClient.isBrowserSupported() )
+			{
+				var clsGraph = new mxGraph( container );
+
+				new mxRubberband( clsGraph );
+				var clsParent = clsGraph.getDefaultParent();
+				var strBoxStyle = 'image=editors/images/house.png;fontColor=blue;shape=label;align=left;spacingLeft=60;imageWidth=40;imageHeight=40;editable=0;foldable=0';
+				var strLabelStyle = 'fontColor=red;align=left;strokeColor=none;editable=0';
+
+				clsGraph.getModel().beginUpdate();
+
+				// 첫번째 박스를 추가한다.
+				var v1 = clsGraph.insertVertex( clsParent, null, "첫번째", 50, 20, 140, 60, strBoxStyle );
+				var label1 = clsGraph.insertVertex( v1, null, "라벨#1", 60, 1, 40, 20, strLabelStyle );
+
+				// 두번재 박스를 추가한다.
+				var v2 = clsGraph.insertVertex( clsParent, null, "두번째", 200, 100, 140, 60, strBoxStyle );
+				var label2 = clsGraph.insertVertex( v2, null, "라벨#2", 60, 1, 40, 20, strLabelStyle );
+
+				clsGraph.getModel().endUpdate();
+
+				// 클릭 이벤트를 추가한다.
+				clsGraph.addListener( mxEvent.CLICK, function( sender, evt ){
+
+					if( gclsSelectCell != null )
+					{
+						clsGraph.removeSelectionCell( gclsSelectCell );
+						gclsSelectCell = null;
+					}
+
+					var clsCell = evt.getProperty("cell");
+					if( clsCell != null )
+					{
+						if( clsCell.children == null )
+						{
+							// 박스 안의 라벨이 선택된 경우, 선택 해제하고 박스가 선택되도록 수정함
+							clsGraph.removeSelectionCell( clsCell );
+							clsCell = clsCell.parent;
+						}
+
+						clsGraph.setSelectionCell( clsCell );
+						gclsSelectCell = clsCell;
+
+						$('#parent').val( clsCell.value );
+						$('#child' ).val( clsCell.children[0].value );
+					}
+					else
+					{
+						$('#parent').val('');
+						$('#child' ).val('');
+					}
+
+					evt.consume();
+				});
+			}
+		}
+
+	</script>
+</head>
+<body onload="main( document.getElementById('lyGraph') )">
+<div id="lyGraph" style="width: 400px; height: 200px; border: 1px solid dodgerblue ">
+</div>
+<div style="padding: 20px;">
+	부모 박스 : <input type="text" id="parent" name="parent"><br>
+	자식 박스 : <input type="text" id="child" name="child"><br>
+	<!--<input type="button" value="저장" onclick="Save()">-->
+</div>
+</body>
+</html>
