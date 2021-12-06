@@ -11,6 +11,10 @@
 
 <div>
 
+	<div style="padding-bottom: 20px">
+		ID : <input type="text" id="treeId" name="treeId" value="10">		<input type="button" value="setSelect" onclick="setSelect()">
+	</div>
+
 	<div id="tree" class="dtree" style="border: 1px solid red; height: 100px; overflow: scroll">
 
 	</div>
@@ -33,6 +37,21 @@
 		function clickTree( iId )
 		{
 			d.openTo( iId, true );
+		}
+
+		function setSelect( )
+		{
+			var iId = parseInt( $('#treeId').val() );
+
+			d.openTo( iId, true );
+
+			$('#tree').animate(
+				{
+					scrollTop: $('#sd' + iId ).offset().top
+				},
+				500,
+				'linear'
+			);
 		}
 	</script>
 
