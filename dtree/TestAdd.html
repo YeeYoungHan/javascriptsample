@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="StyleSheet" href="src/dtree.css" type="text/css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script type="text/javascript" src="src/dtree.js"></script>
+</head>
+<body>
+
+<div>
+
+	<div style="padding-bottom: 20px">
+		name : <input type="text" id="treeName" name="treeName" value="child">		<input type="button" value="add" onclick="Add()">
+	</div>
+	<div id="tree" class="dtree" style="border: 1px solid red">
+
+	</div>
+
+	<script type="text/javascript">
+		var gId = 0;
+		var garrData = [];
+
+		var d = new dTree('d');
+		d.config.strBaseImgPath = "src/";
+
+		AddArray( 0, -1, "Root" );
+		d.add(0,-1,"Root");
+		$('#tree').html( d.toString() );
+
+		function Add()
+		{
+			var strName = $('#treeName').val();
+			var pid = 0;
+
+			if( d.selectedNode == null )
+			{
+				pid = 0;
+			}
+			else
+			{
+				pid = d.selectedNode.id;
+			}
+
+			++gId;
+			AddArray( gId, pid, strName );
+
+			d = new dTree('d');
+			d.config.strBaseImgPath = "src/";
+
+			var iCount = garrData.length;
+
+			for( var i = 0; i < iCount; ++i )
+			{
+				var clsRow = garrData[i];
+				d.add( clsRow.id, clsRow.pid, clsRow.name );
+			}
+
+			$('#tree').html( d.toString() );
+		}
+
+		function AddArray( iId, iPid, strName )
+		{
+			var clsRow = { "id" : iId, "pid" : iPid, "name" : strName };
+
+			garrData.push( clsRow );
+		}
+	</script>
+
+</div>
+
+</body>
+</html>
