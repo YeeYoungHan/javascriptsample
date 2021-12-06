@@ -40,7 +40,7 @@
 			}
 			else
 			{
-				pid = d.selectedNode.id;
+				pid = d.selectedNode;
 			}
 
 			++gId;
@@ -54,7 +54,7 @@
 			for( var i = 0; i < iCount; ++i )
 			{
 				var clsRow = garrData[i];
-				d.add( clsRow.id, clsRow.pid, clsRow.name );
+				d.add( clsRow.id, clsRow.pid, clsRow.name, "javascript:clickTree(" + clsRow.id + ")" );
 			}
 
 			$('#tree').html( d.toString() );
@@ -65,6 +65,11 @@
 			var clsRow = { "id" : iId, "pid" : iPid, "name" : strName };
 
 			garrData.push( clsRow );
+		}
+
+		function clickTree( iId )
+		{
+			d.openTo( iId, true );
 		}
 	</script>
 
