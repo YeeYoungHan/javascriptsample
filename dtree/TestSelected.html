@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="StyleSheet" href="src/dtree.css" type="text/css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script type="text/javascript" src="src/dtree.js"></script>
+</head>
+<body>
+
+<div>
+
+	<div id="tree" class="dtree" style="border: 1px solid red; height: 100px; overflow: scroll">
+
+	</div>
+
+	<script type="text/javascript">
+		var gId = 0;
+
+		var d = new dTree('d');
+		d.config.strBaseImgPath = "src/";
+
+		d.add(0,-1,"Root");
+
+		for( var i = 0; i < 10; ++i )
+		{
+			d.add( ++gId, 0, "child-" + (i+1), "javascript:clickTree(" + gId + ")" );
+		}
+
+		$('#tree').html( d.toString() );
+
+		function clickTree( iId )
+		{
+			d.openTo( iId, true );
+		}
+	</script>
+
+</div>
+
+</body>
+</html>
