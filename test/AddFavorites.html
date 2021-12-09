@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title>즐겨찾기 추가</title>
+</head>
+<body>
+	<input type="button" value="즐겨찾기 추가" onclick="AddFavorites()">
+
+	<script>
+		function AddFavorites()
+		{
+			var strURL = window.location.href;
+			var strTitle = document.title;
+
+			if( window.external && ('AddFavorite' in window.external ) )
+			{
+				// IE Favorite
+				window.external.AddFavorite( strURL, strTitle );
+			}
+			else
+			{
+				// 크롬, 사파리, 파이어폭스, 오페라
+				alert( ( navigator.userAgent.toLowerCase().indexOf('mac') != -1 ? 'Cmd' : 'Ctrl' ) + '+D 키를 눌러 즐겨찾기에 등록하실 수 있습니다.' );
+			}
+		}
+	</script>
+</body>
+</html>
