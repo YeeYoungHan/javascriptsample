@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title>바로 가기 추가</title>
+	<link rel="manifest" href="manifest.json">
+</head>
+<body>
+	<input type="button" value="바로가기 추가" onclick="AddHomeButton()">
+
+	<script>
+		if( 'serviceWorker' in navigator )
+		{
+			navigator.serviceWorker.register( 'service-worker.js' ).then( function(reg){
+					console.log("Yes, it did.");
+				}).catch( function(err) {
+					console.log("No it didn't. This happened:", err)
+				});
+		}
+	</script>
+</body>
+</html>

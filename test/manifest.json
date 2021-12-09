@@ -1,0 +1,15 @@
+{
+  "background_color": "purple",
+  "description": "바탕화면에 추가",
+  "display": "fullscreen",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "name": "바탕화면 이름",
+  "short_name": "바로가기",
+  "start_url": "/tmp/AddShortcuts.html"
+}
