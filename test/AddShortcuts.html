@@ -12,10 +12,25 @@
 		if( 'serviceWorker' in navigator )
 		{
 			navigator.serviceWorker.register( 'service-worker.js' ).then( function(reg){
-					console.log("Yes, it did.");
+					console.log( "service-worker.js is installed" );
 				}).catch( function(err) {
-					console.log("No it didn't. This happened:", err)
+					console.log( "service-worker.js install error - ", err )
 				});
+		}
+
+		var deferredPrompt;
+
+		window.addEventListener( 'beforeinstallprompt', function(e)
+		{
+			// Prevent Chrome 67 and earlier from automatically showing the prompt
+			e.preventDefault();
+			// Stash the event so it can be triggered later.
+			deferredPrompt = e;
+		} );
+
+		function AddHomeButton()
+		{
+			deferredPrompt.prompt();
 		}
 	</script>
 </body>
