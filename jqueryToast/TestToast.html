@@ -8,8 +8,9 @@
 	<link href="src/toastr.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-	<input type="button" value="Show Success Toast" onclick="ShowSuccessToast()">
-	<input type="button" value="Show Info Toast" onclick="ShowInfoToast()">
+	<input type="button" value="Show Success Toast" onclick="ShowSuccessToast()"><br>
+	<input type="button" value="Show Info Toast" onclick="ShowInfoToast()"><br>
+	<input type="button" value="Hide Toast" onclick="HideToast()">
 	<script>
 		function ShowSuccessToast()
 		{
@@ -24,6 +25,11 @@
 		function ShowInfoToast()
 		{
 			toastr['info']('메시지', '타이틀');
+		}
+
+		function HideToast()
+		{
+			toastr.clear();
 		}
 	</script>
 </body>
