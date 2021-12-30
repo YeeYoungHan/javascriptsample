@@ -16,15 +16,27 @@
 		{
 			toastr.options = {
 				closeButton: true,
-				timeOut: 0
+				timeOut: 0,
+				positionClass: "toast-bottom-center"
 			};
 
 			toastr['success']('메시지', '타이틀');
 		}
 
+		Date.prototype.getTimeString = function () {
+			return ((this.getHours() < 10)?"0":"") + this.getHours() +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes() +":"+ ((this.getSeconds() < 10)?"0":"") + this.getSeconds();
+		}
+
 		function ShowInfoToast()
 		{
-			toastr['info']('메시지', '타이틀');
+			toastr.options = {
+				closeButton: true,
+				timeOut: 5000,
+				positionClass: "toast-bottom-center"
+			};
+
+			var clsDate = new Date();
+			toastr['info']('메시지 (' + clsDate.getTimeString() + ")");
 		}
 
 		function HideToast()
