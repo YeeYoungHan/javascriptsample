@@ -12,9 +12,12 @@
 
 ### 폴더 설명
 
-* mxGraph
-  * mxGraph 기반 샘플 프로그램
-
 * dtree
   * dtree 기반 샘플 프로그램
+
+* jqueryToast
+  * jQuery Toast 기반 샘플 프로그램
+
+* mxGraph
+  * mxGraph 기반 샘플 프로그램
 
