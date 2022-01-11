@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+	<style type="text/css" media="screen">
+		#editor {
+			width: 100%; 	height: 500px;
+		}
+	</style>
+</head>
+<body>
+<div id="editor">
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="src/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+	var strInput = '{"TransferNumber":"1234", "Name":"파워프로그래머", "URL": "https://blog.naver.com/websearch"}';
+	var clsJson = JSON.parse( strInput );
+	var strJson = JSON.stringify( clsJson, null, 4 );
+
+	$('#editor').html( strJson );
+
+	var editor = ace.edit("editor");
+	editor.setTheme("ace/theme/monokai");
+	editor.session.setMode("ace/mode/json");
+</script>
+</body>
+</html>
