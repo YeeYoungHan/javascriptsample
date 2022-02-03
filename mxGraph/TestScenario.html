@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title>mxGraph 의 박스에 라벨 추가하고 자동 크기 설정</title>
+
+	<script>
+		mxBasePath = "src";
+	</script>
+	<script src="src/js/mxClient.js"></script>
+	<script>
+
+		function AddHome( clsGraph, strValue, iX, iY )
+		{
+			var clsParent = clsGraph.getDefaultParent();
+
+			var v1 = clsGraph.insertVertex( clsParent, null, strValue, iX, iY, 120, 40, 'fontColor=blue;editable=0;foldable=0;resizable=0;fontSize=15;image=editors/images/house.png;imageWidth=34;imageHeight=34;shape=label;spacingLeft=40' );
+
+			return v1;
+		}
+
+		function AddBox( clsGraph, strKey, strValue, iX, iY )
+		{
+			var clsParent = clsGraph.getDefaultParent();
+
+			// 박스를 추가한다.
+			var v1 = clsGraph.insertVertex( clsParent, null, "", iX, iY, 140, 40, 'fontColor=blue;editable=0;foldable=0;resizable=0' );
+
+			// 박스 안에 새로운 박스를 추가한다. border 를 보이지 않기 위해서 strokeColor=none 으로 설정한다.
+			var label1 = clsGraph.insertVertex( v1, null, strKey, 5, 10, 20, 20, 'fontColor=red;align=left;strokeColor=red;editable=0;fillColor=white;overflow=hidden;resizable=0;fontSize=20;spacingLeft=3;spacingRight=4' );
+			clsGraph.updateCellSize( label1, true );
+
+			var label2 = clsGraph.insertVertex( v1, null, strValue, 30, 10, 20, 20, 'fontColor=blue;align=left;strokeColor=none;editable=0;fillColor=none;overflow=hidden;resizable=0;fontSize=15;spacingLeft=3;spacingRight=4' );
+			clsGraph.updateCellSize( label2, true );
+
+			return v1;
+		}
+
+		function main( container )
+		{
+			if( mxClient.isBrowserSupported() )
+			{
+				var clsGraph = new mxGraph( container );
+
+				var style = clsGraph.getStylesheet().getDefaultEdgeStyle();
+				style[mxConstants.STYLE_ROUNDED] = true;
+				style[mxConstants.STYLE_EDGE] = mxEdgeStyle.ElbowConnector;
+				clsGraph.alternateEdgeStyle = 'elbow=vertical';
+
+				new mxRubberband( clsGraph );
+				var clsParent = clsGraph.getDefaultParent();
+
+				clsGraph.getModel().beginUpdate();
+
+				var vHome = AddHome( clsGraph, "회사대표음", 20, 20 );
+				var vMenu = AddHome( clsGraph, "메뉴", 180, 20 );
+
+				var v1 = AddBox( clsGraph, "1", "영업팀", 340, 20 );
+				var v2 = AddBox( clsGraph, "2", "연구소", 340, 80 );
+
+				clsGraph.insertEdge( clsParent, null, '', vHome, vMenu );
+				clsGraph.insertEdge( clsParent, null, '', vMenu, v1 );
+				clsGraph.insertEdge( clsParent, null, '', vMenu, v2 );
+
+				clsGraph.getModel().endUpdate();
+			}
+		}
+
+	</script>
+</head>
+<body onload="main( document.getElementById('lyGraph') )">
+<div id="lyGraph" style="width: 400px; height: 400px; ">
+</div>
+</body>
+</html>
