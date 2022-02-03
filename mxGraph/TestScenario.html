@@ -56,11 +56,28 @@
 				var vMenu = AddHome( clsGraph, "메뉴", 180, 20 );
 
 				var v1 = AddBox( clsGraph, "1", "영업팀", 340, 20 );
-				var v2 = AddBox( clsGraph, "2", "연구소", 340, 80 );
+				var v2 = AddBox( clsGraph, "2", "연구소", 340, 200 );
+				var v3 = AddBox( clsGraph, "3", "기술지원팀", 340, 380 );
+
+
+				var v11 = AddBox( clsGraph, "1", "영업팀 #1", 520, 20 );
+				var v12 = AddBox( clsGraph, "2", "영업팀 #2", 520, 80 );
+				var v13 = AddBox( clsGraph, "#", "이전 메뉴", 520, 140 );
+
+				var v21 = AddBox( clsGraph, "1", "연구소 #1", 520, 200 );
+				var v22 = AddBox( clsGraph, "2", "연구소 #2", 520, 260 );
+				var v23 = AddBox( clsGraph, "#", "이전 메뉴", 520, 320 );
 
 				clsGraph.insertEdge( clsParent, null, '', vHome, vMenu );
 				clsGraph.insertEdge( clsParent, null, '', vMenu, v1 );
 				clsGraph.insertEdge( clsParent, null, '', vMenu, v2 );
+				clsGraph.insertEdge( clsParent, null, '', vMenu, v3 );
+				clsGraph.insertEdge( clsParent, null, '', v1, v11 );
+				clsGraph.insertEdge( clsParent, null, '', v1, v12 );
+				clsGraph.insertEdge( clsParent, null, '', v1, v13 );
+				clsGraph.insertEdge( clsParent, null, '', v2, v21 );
+				clsGraph.insertEdge( clsParent, null, '', v2, v22 );
+				clsGraph.insertEdge( clsParent, null, '', v2, v23 );
 
 				clsGraph.getModel().endUpdate();
 			}
