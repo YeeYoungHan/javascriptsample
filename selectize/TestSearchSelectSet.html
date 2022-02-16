@@ -18,49 +18,20 @@
 			<option value="5">연구소 #2</option>
 		</select>
 	</div>
-	<div id="log" style="margin-top: 200px">
-
+	<div>
+		<input type="text" id="value" onchange="SetValue()">
 	</div>
 	<script>
-		var giSelectedId = "";
-
-		function Log( strLog )
-		{
-			var strText = $('#log').html();
-			$('#log').html( strText + '<br>' + strLog );
-		}
-
-		function eventBlur()
-		{
-			return function()
-			{
-				Log( 'Blur' );
-
-				var iSelectedId = $( "#group" ).val();
-				if( iSelectedId == "" && giSelectedId != "" )
-				{
-					$('#group').data('selectize').setValue(giSelectedId);
-				}
-			};
-		}
-
 		$('#group').selectize({
 			create: false,
-			dropdownParent: 'body',
-			onBlur: eventBlur()
+			dropdownParent: 'body'
 		});
 
-		$("#group").change(function()
+		function SetValue()
 		{
-			var iSelectedId = $( "#group" ).val();
-
-			Log( iSelectedId );
-
-			if( iSelectedId != "" )
-			{
-				giSelectedId = iSelectedId;
-			}
-		});
+			strValue = $('#value' ).val();
+			$('#group').data('selectize').setValue(strValue);
+		}
 	</script>
 </body>
 </html>
