@@ -30,7 +30,8 @@
 		function SetValue()
 		{
 			strValue = $('#value' ).val();
-			$('#group').data('selectize').setValue(strValue);
+			//$('#group').data('selectize').setValue(strValue);
+			$('#group')[0].selectize.setValue(strValue);
 		}
 	</script>
 </body>

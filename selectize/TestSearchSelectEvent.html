@@ -22,8 +22,6 @@
 
 	</div>
 	<script>
-		var giSelectedId = "";
-
 		function Log( strLog )
 		{
 			var strText = $('#log').html();
@@ -37,9 +35,9 @@
 				Log( 'Blur' );
 
 				var iSelectedId = $( "#group" ).val();
-				if( iSelectedId == "" && giSelectedId != "" )
+				if( iSelectedId == "" && $("#group")[0].iSelectedId != "" )
 				{
-					$('#group').data('selectize').setValue(giSelectedId);
+					$('#group')[0].selectize.setValue($("#group")[0].iSelectedId);
 				}
 			};
 		}
@@ -50,6 +48,8 @@
 			onBlur: eventBlur()
 		});
 
+		$("#group")[0]['iSelectedId'] = "";
+
 		$("#group").change(function()
 		{
 			var iSelectedId = $( "#group" ).val();
@@ -58,7 +58,7 @@
 
 			if( iSelectedId != "" )
 			{
-				giSelectedId = iSelectedId;
+				$("#group")[0].iSelectedId = iSelectedId;
 			}
 		});
 	</script>
