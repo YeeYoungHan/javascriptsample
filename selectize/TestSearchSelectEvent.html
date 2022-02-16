@@ -28,24 +28,18 @@
 			$('#log').html( strText + '<br>' + strLog );
 		}
 
-		function eventBlur()
-		{
-			return function()
-			{
-				Log( 'Blur' );
-
-				var iSelectedId = $( "#group" ).val();
-				if( iSelectedId == "" && $("#group")[0].iSelectedId != "" )
-				{
-					$('#group')[0].selectize.setValue($("#group")[0].iSelectedId);
-				}
-			};
-		}
-
 		$('#group').selectize({
 			create: false,
 			dropdownParent: 'body',
-			onBlur: eventBlur()
+			onBlur: function(){
+					Log( 'Blur' );
+
+					var iSelectedId = $( "#group" ).val();
+					if( iSelectedId == "" && $("#group")[0].iSelectedId != "" )
+					{
+						$('#group')[0].selectize.setValue($("#group")[0].iSelectedId);
+					}
+			}
 		});
 
 		$("#group")[0]['iSelectedId'] = "";
