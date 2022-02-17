@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="https://code.jquery.com/jquery-1.12.2.min.js"></script>
+	<script src="src/selectize.js"></script>
+	<link rel="stylesheet" href="src/selectize.css">
+	<style>
+		.select_parent { width: 200px; float: left }
+	</style>
+</head>
+<body>
+	<div class="select_parent">
+		<select id="group">
+			<option value="">부서를 선택하세요.</option>
+			<option value="1">연구소</option>
+			<option value="2">기술지원</option>
+			<option value="3">영업</option>
+			<option value="4">경영지원</option>
+			<option value="5">연구소 #2</option>
+		</select>
+	</div>
+	<div class="select_parent">
+		<select id="member">
+			<option value="">선택하세요.</option>
+		</select>
+	</div>
+	<script>
+		function SetSearchSelect( clsDiv )
+		{
+			clsDiv.selectize({
+				create: false,
+				dropdownParent: 'body',
+				onBlur: function(){
+					var iSelectedId = clsDiv.val();
+					if( iSelectedId == "" && clsDiv[0].iSelectedId != "" )
+					{
+						clsDiv[0].selectize.setValue(clsDiv[0].iSelectedId);
+					}
+				}
+			});
+
+			clsDiv[0]['iSelectedId'] = "";
+
+			clsDiv.change( function(){
+				var iSelectedId = clsDiv.val();
+
+				if( iSelectedId != "" )
+				{
+					clsDiv[0].iSelectedId = iSelectedId;
+				}
+			});
+		}
+
+		SetSearchSelect( $('#group') );
+		SetSearchSelect( $('#member') );
+
+		$('#group').change( function(){
+			var iSelectedId = $('#group').val();
+
+			$('#member')[0].selectize.destroy();
+
+			if( iSelectedId == "1" )
+			{
+				$('#member').html( '<option value="">연구소 선택하세요.</option><option value="1">김 연구원</option><option value="2">나 연구원</option>' );
+			}
+			else if( iSelectedId == "2" )
+			{
+				$('#member').html( '<option value="">기술지원 선택하세요.</option><option value="1">다 기술자</option><option value="2">라 기술자</option>' );
+			}
+			else if( iSelectedId == "3" )
+			{
+				$('#member').html( '<option value="">영업 선택하세요.</option><option value="1">마 영업</option><option value="2">바 영업</option>' );
+			}
+			else if( iSelectedId == "4" )
+			{
+				$('#member').html( '<option value="">경영지원 선택하세요.</option><option value="1">사 경영</option><option value="2">자 경영</option>' );
+			}
+			else if( iSelectedId == "1" )
+			{
+				$('#member').html( '<option value="">연구소 #2 선택하세요.</option><option value="1">김2 연구원</option><option value="2">나2 연구원</option>' );
+			}
+			else
+			{
+				$('#member').html( '<option value="">연구소 선택하세요.</option>' );
+			}
+
+			SetSearchSelect( $('#member') );
+		});
+		
+	</script>
+</body>
+</html>
