@@ -21,10 +21,19 @@
 	<div>
 		<input type="text" id="value" onchange="SetValue()">
 	</div>
+	<div id="log">
+	</div>
 	<script>
 		$('#group').selectize({
 			create: false,
 			dropdownParent: 'body'
+		});
+
+		$("#group").change(function()
+		{
+			var iSelectedId = $( "#group" ).val();
+
+			$('#log').html( iSelectedId );
 		});
 
 		function SetValue()
