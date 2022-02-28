@@ -39,7 +39,6 @@
 
 		function Log( strText )
 		{
-
 			var strLog = $('#log').html();
 			$('#log').html( strLog + "<br>[" + GetTime() + "] " + strText );
 		}
@@ -53,6 +52,8 @@
 		function SetValue()
 		{
 			var strValue = $('#value').val();
+
+			Log( "val(" + strValue + ")" );
 			$("#list").val(strValue);
 
 			$.ajax({
