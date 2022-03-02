@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title>console.log 성능 테스트</title>
+	<script src="https://code.jquery.com/jquery-1.12.2.min.js"></script>
+</head>
+<body>
+	<div id="log">
+
+	</div>
+	<script>
+		function ZeroPad( iValue, iLen )
+		{
+			var  len = ( iLen - String(iValue).length ) + 1;
+			return len > 0? new Array(len).join('0') + iValue : iValue;
+		}
+
+		function GetTime()
+		{
+			var clsDate = new Date();
+			var iHour = clsDate.getHours();
+			var iMin = clsDate.getMinutes();
+			var iSec = clsDate.getSeconds();
+			var iMilliSec = clsDate.getMilliseconds();
+
+			return ZeroPad( iHour, 2 ) + ":" + ZeroPad( iMin, 2 ) + ":" + ZeroPad( iSec, 2 ) + "." + ZeroPad( iMilliSec, 3 );
+		}
+
+		function Log( strText )
+		{
+			var strLog = $('#log').html();
+			$('#log').html( strLog + "<br>[" + GetTime() + "] " + strText );
+		}
+
+		$( document ).ready( function() {
+			Log( "test start" );
+
+			for( var i = 0; i < 100000; ++i )
+			{
+				console.log( "[" + i + "] abcdefghijklmnopqrstuvwxyz" );
+			}
+
+			Log( "test end" );
+		});
+	</script>
+</body>
+</html>
