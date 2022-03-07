@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="https://code.jquery.com/jquery-1.12.2.min.js"></script>
+	<style>
+		table { border: 1px solid red }
+		table tbody { width: 160px; height: 200px; vertical-align: top; display: block; overflow: scroll; }
+		table tbody tr { height: 30px }
+	</style>
+</head>
+<body>
+	<table id="list">
+		<tbody>
+
+		</tbody>
+	</table>
+	<script>
+		$( document ).ready(function() {
+			var iIndex = 0;
+
+			// 1초마다 row 를 추가한다.
+			setInterval( function(){
+				++iIndex;
+
+				var strHtml = '<tr><td>' + iIndex + '</td><td>이름 ' + iIndex + '</td></tr>';
+
+				$('#list tbody').append( strHtml );
+
+				// 맨 마지막 row 를 보여준다.
+				$('#list tbody').scrollTop( $('#list tbody')[0].scrollHeight );
+			}, 1000 );
+		});
+	</script>
+</body>
+</html>
