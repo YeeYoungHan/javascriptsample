@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="https://code.jquery.com/jquery-1.12.2.min.js"></script>
+	<script src="src/jquery.slimscroll.js"></script>
+	<style>
+		#test { border: 1px solid red }
+	</style>
+</head>
+<body>
+	<div id="test">
+
+	</div>
+	<script>
+		$( document ).ready(function() {
+			$('#test').slimscroll({
+				width:'100px',
+				height: '202px',
+				size: '6px',
+				color: '#4a4a4a',
+				alwaysVisible: true,
+				wheelStep: 1
+			});
+
+			var strHtml = "";
+
+			for( var i = 0; i < 1000; ++i )
+			{
+				strHtml += "<div>num-" + i + "</div>";
+			}
+
+			$('#test').html( strHtml );
+		});
+	</script>
+</body>
+</html>
