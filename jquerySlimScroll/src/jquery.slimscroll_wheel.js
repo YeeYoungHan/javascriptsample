@@ -347,7 +347,7 @@
           {
             // move bar with mouse wheel
             //delta = parseInt(bar.css('top')) + y * parseInt(o.wheelStep) / 100 * bar.outerHeight();
-						delta = parseInt(bar.css('top')) + y * ( me.outerHeight() / me[0].scrollHeight ) * me.outerHeight();
+						delta = parseInt(bar.css('top')) + y * ( me.outerHeight() / me[0].scrollHeight ) * 0.95 * me.outerHeight();
 
 						//console.log( "y = " + y + ", outerHeight = " + me.outerHeight() + ", scrollHeight =" + me[0].scrollHeight + ", bar_outerHeight = " + bar.outerHeight()  + ", delta = " + delta );
 
@@ -358,7 +358,9 @@
             // scroll position isn't rounded away when the scrollbar's CSS is set
             // this flooring of delta would happened automatically when
             // bar.css is set below, but we floor here for clarity
-            delta = (y > 0) ? Math.ceil(delta) : Math.floor(delta);
+            //delta = (y > 0) ? Math.ceil(delta) : Math.floor(delta);
+
+						delta = (y > 0) ? Math.floor(delta) : Math.ceil(delta);
 
 						//console.log( "delta = " + delta + "px" );
 
