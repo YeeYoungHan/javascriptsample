@@ -18,6 +18,9 @@
 * dtree
   * dtree 기반 샘플 프로그램
 
+* jquerySlimScroll
+  * jQuery SlimScroll 기반 샘플 프로그램
+
 * jqueryToast
   * jQuery Toast 기반 샘플 프로그램
 
