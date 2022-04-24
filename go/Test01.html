@@ -6,6 +6,16 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gojs/1.6.13/go.js"></script>
 </head>
 <body>
-	<div id="myDiagramDiv" style="width:400px; height:150px; background-color: #DAE4E4;"></div>
+	<div id="graph" style="width:400px; height:150px; background-color: #DAE4E4;"></div>
+	<script>
+		var clsGraph = new go.Diagram("graph");
+
+		clsGraph.model = new go.Model( [
+			{ key: "첫번째" },
+			{ key: "두번째" },
+			{ key: "세번째" }
+		] );
+
+	</script>
 </body>
 </html>
