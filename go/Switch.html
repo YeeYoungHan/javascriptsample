@@ -17,7 +17,7 @@
 	);
 
 	clsGraph.linkTemplate = go.GraphObject.make(
-		go.Link, { routing: go.Link.Orthogonal, corner: 5 },
+		go.Link, { routing: go.Link.Bezier },
 		go.GraphObject.make(go.Shape, { strokeWidth: 3, stroke: "#555" }));
 
 	clsGraph.model = new go.GraphLinksModel( [
