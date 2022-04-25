@@ -8,6 +8,7 @@
 <body>
 <div id="graph" style="width:800px; height:400px; background-color: #DAE4E4;"></div>
 <script>
+	// 스위치 허브 정보 리스트
 	var arrData = [
 		{ key:"1", source: "img/switch.png", link: [],
 			port_list:[
@@ -29,7 +30,10 @@
 			] }
 	];
 
+	// 스위치 허브 연결 리스트
 	var arrLink = [];
+
+	// key = IP 주소, value = 스위치 허브 key
 	var mapIpKey = {};
 
 	// IP 주소 배열이 모두 직접 연결된 스위치 허브의 key 를 리턴한다.
@@ -97,12 +101,13 @@
 
 				if( strKey != null )
 				{
-					clsSwitch.link.push( strKey );
+					InsertLink( clsSwitch, strKey );
 				}
 			}
 		}
 	}
 
+	// go.js 에 입력할 스위치 허브의 연결 정보를 저장한다.
 	for( var i = 0; i < arrData.length; ++i )
 	{
 		var clsSwitch = arrData[i];
