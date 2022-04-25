@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title>스위치 허브 구성도</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gojs/1.6.13/go.js"></script>
+</head>
+<body>
+<div id="graph" style="width:800px; height:400px; background-color: #DAE4E4;"></div>
+<script>
+	var clsGraph = go.GraphObject.make( go.Diagram, "graph", { initialContentAlignment: go.Spot.Center });
+
+	clsGraph.nodeTemplate = go.GraphObject.make(
+		go.Node, "Auto",
+		go.GraphObject.make( go.Picture, { margin: 0, width: 191, height: 20, background: "red" }, new go.Binding("source") ),
+		go.GraphObject.make( go.TextBlock, "Default Text", { stroke: "white", font: "bold 16px sans-serif" }, 	new go.Binding("text", "key") )
+	);
+
+	clsGraph.linkTemplate = go.GraphObject.make(
+		go.Link, { routing: go.Link.Orthogonal, corner: 5 },
+		go.GraphObject.make(go.Shape, { strokeWidth: 3, stroke: "#555" }));
+
+	clsGraph.model = new go.GraphLinksModel( [
+		{ key:"1", source: "img/switch.png" },
+		{ key:"2", source: "img/switch.png" },
+		{ key:"3", source: "img/switch.png" },
+		{ key:"PBX", source: "img/switch.png" }
+	],
+	[
+		{ from:"1", to:"2" },
+		{ from:"2", to:"3" },
+		{ from:"3", to:"1" },
+		{ from:"2", to:"PBX" }
+	]);
+
+</script>
+</body>
+</html>
