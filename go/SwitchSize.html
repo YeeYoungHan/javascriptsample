@@ -2,18 +2,27 @@
 <html>
 <head lang="en">
 	<meta charset="UTF-8">
-	<title>스위치 허브 구성도</title>
+	<title>1개 이미지 크기만 수정하는 방법. JSON 저장하는 방법</title>
+	<script src="https://code.jquery.com/jquery-1.12.2.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gojs/1.6.13/go.js"></script>
 </head>
 <body>
 <div id="graph" style="width:800px; height:400px; background-color: #DAE4E4;"></div>
+<div>
+	<input type="button" onclick="GetJson()" value="GetJson">
+	<input type="button" onclick="PutJson()" value="PutJson">
+</div>
+<div>
+	<textarea id="json" rows="14" cols="100"></textarea>
+</div>
 <script>
 	var clsGraph = go.GraphObject.make( go.Diagram, "graph", { initialContentAlignment: go.Spot.Center });
 
 	clsGraph.nodeTemplate = go.GraphObject.make(
 		go.Node, "Auto",
 		go.GraphObject.make( go.Picture, { margin: 0, width: 191, height: 20, background: "red" }, new go.Binding("source"), new go.Binding("width"), new go.Binding("height") ),
-		go.GraphObject.make( go.TextBlock, "Default Text", { stroke: "white", font: "bold 16px sans-serif" }, new go.Binding("text", "key") )
+		go.GraphObject.make( go.TextBlock, "Default Text", { stroke: "white", font: "bold 16px sans-serif" }, new go.Binding("text", "key") ),
+		new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify)
 	);
 
 	clsGraph.linkTemplate = go.GraphObject.make(
@@ -33,6 +42,17 @@
 		{ from:"2", to:"PBX" }
 	]);
 
+	function GetJson()
+	{
+		$('#json').text( clsGraph.model.toJson() );
+	}
+
+	function PutJson()
+	{
+		var strJson = $('#json').text();
+
+		clsGraph.model = go.Model.fromJson( strJson );
+	}
 </script>
 </body>
 </html>
