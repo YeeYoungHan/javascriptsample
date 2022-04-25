@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title>스위치 허브 구성도</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gojs/1.6.13/go.js"></script>
+</head>
+<body>
+<div id="graph" style="width:800px; height:400px; background-color: #DAE4E4;"></div>
+<script>
+	var arrData = [
+		{ key:"1", source: "img/switch.png", link: [],
+			port_list:[
+				{ port:"5001", ip_list:["192.168.0.1"] },
+				{ port:"5002", ip_list:["192.168.0.2"] },
+				{ port:"5003", ip_list:["192.168.0.3", "192.168.0.4", "192.168.0.5"] }
+			] },
+		{ key:"2", source: "img/switch.png", link: [],
+			port_list:[
+				{ port:"5001", ip_list:["192.168.0.3"] },
+				{ port:"5003", ip_list:["192.168.0.4","192.168.0.5"] },
+				{ port:"5004", ip_list:["192.168.0.1","192.168.0.2"] }
+			] },
+		{ key:"3", source: "img/switch.png", link: [],
+			port_list:[
+				{ port:"5001", ip_list:["192.168.0.4"] },
+				{ port:"5003", ip_list:["192.168.0.5"] },
+				{ port:"5004", ip_list:["192.168.0.1","192.168.0.2","192.168.0.3"] }
+			] }
+	];
+
+	var arrLink = [];
+	var mapIpKey = {};
+
+	// IP 주소 배열이 모두 직접 연결된 스위치 허브의 key 를 리턴한다.
+	function SelectSwitch( arrIp )
+	{
+		var strKey = null;
+
+		for( var i = 0; i < arrIp.length; ++i )
+		{
+			if( arrIp[i] in mapIpKey )
+			{
+				if( strKey == null )
+				{
+					strKey = mapIpKey[ arrIp[i] ];
+				}
+				else if( strKey != mapIpKey[ arrIp[i] ] )
+				{
+					return null;
+				}
+			}
+		}
+
+		return strKey;
+	}
+
+	// 스위치 허브 json 에 연결 정보를 저장한다.
+	function InsertLink( clsSwitch, strKey )
+	{
+		for( var i = 0; i < clsSwitch.link.length; ++i )
+		{
+			if( clsSwitch.link[i] == strKey ) return;
+		}
+
+		clsSwitch.link.push( strKey );
+	}
+
+	// IP 주소에 직접 연결된 스위치 정보를 저장한다.
+	for( var i = 0; i < arrData.length; ++i )
+	{
+		var clsSwitch = arrData[i];
+
+		for( var j = 0; j < clsSwitch.port_list.length; ++j )
+		{
+			var clsPort = clsSwitch.port_list[j];
+
+			if( clsPort.ip_list.length == 1 )
+			{
+				mapIpKey[clsPort.ip_list[0]] = clsSwitch.key;
+			}
+		}
+	}
+
+	// 스위치 허브 <-> 스위치 허브 간의 연결 관계를 저장한다.
+	for( var i = 0; i < arrData.length; ++i )
+	{
+		var clsSwitch = arrData[i];
+
+		for( var j = 0; j < clsSwitch.port_list.length; ++j )
+		{
+			var clsPort = clsSwitch.port_list[j];
+
+			if( clsPort.ip_list.length >= 2 )
+			{
+				var strKey = SelectSwitch( clsPort.ip_list );
+
+				if( strKey != null )
+				{
+					clsSwitch.link.push( strKey );
+				}
+			}
+		}
+	}
+
+	for( var i = 0; i < arrData.length; ++i )
+	{
+		var clsSwitch = arrData[i];
+
+		for( var j = 0; j < clsSwitch.link.length; ++j )
+		{
+			arrLink.push( { from: clsSwitch.key, to: clsSwitch.link[j] } );
+		}
+	}
+
+	console.log( arrLink );
+
+	var clsGraph = go.GraphObject.make( go.Diagram, "graph", { initialContentAlignment: go.Spot.Center });
+
+	clsGraph.nodeTemplate = go.GraphObject.make(
+		go.Node, "Auto",
+		go.GraphObject.make( go.Picture, { margin: 0, width: 191, height: 20, background: "red" }, new go.Binding("source") ),
+		go.GraphObject.make( go.TextBlock, "Default Text", { stroke: "white", font: "bold 16px sans-serif" }, 	new go.Binding("text", "key") )
+	);
+
+	clsGraph.linkTemplate = go.GraphObject.make(
+		go.Link, { routing: go.Link.Orthogonal, corner: 5 },
+		go.GraphObject.make(go.Shape, { strokeWidth: 3, stroke: "#555" }));
+
+	clsGraph.model = new go.GraphLinksModel( arrData, arrLink );
+
+</script>
+</body>
+</html>
