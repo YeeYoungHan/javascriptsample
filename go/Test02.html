@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gojs/1.6.13/go.js"></script>
+</head>
+<body>
+<div id="graph" style="width:400px; height:250px; background-color: #DAE4E4;"></div>
+<script>
+	var clsGraph = new go.Diagram("graph");
+
+	clsGraph.nodeTemplate = go.GraphObject.make(
+		go.Node, "Horizontal", { background: "#44CCFF" },
+		go.GraphObject.make( go.Picture, { margin: 10, width: 50, height: 50, background: "red" }, new go.Binding("source") ),
+		go.GraphObject.make( go.TextBlock, "Default Text", { margin: 12, stroke: "white", font: "bold 16px sans-serif" }, 	new go.Binding("text", "name") )
+		);
+
+	clsGraph.model = new go.Model( [
+		{ key:"1", name: "첫번째", source: "img/cat1.png" },
+		{ key:"2", name: "두번째", source: "img/cat2.png" },
+		{ key:"3", name: "세번째", source: "img/cat3.png" }
+	] );
+
+</script>
+</body>
+</html>
