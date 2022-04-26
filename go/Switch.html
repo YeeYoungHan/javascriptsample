@@ -11,9 +11,9 @@
 	var clsGraph = go.GraphObject.make( go.Diagram, "graph", { initialContentAlignment: go.Spot.Center });
 
 	clsGraph.nodeTemplate = go.GraphObject.make(
-		go.Node, "Auto",
-		go.GraphObject.make( go.Picture, { margin: 0, width: 191, height: 20, background: "red" }, new go.Binding("source") ),
-		go.GraphObject.make( go.TextBlock, "Default Text", { stroke: "white", font: "bold 16px sans-serif" }, 	new go.Binding("text", "key") )
+		go.Node, "Vertical",
+		go.GraphObject.make( go.Picture, { margin: 0, width: 191, height: 20, background: "red", portId: "" }, new go.Binding("source") ),
+		go.GraphObject.make( go.TextBlock, "Default Text", { stroke: "red", font: "bold 16px sans-serif" }, 	new go.Binding("text", "key") )
 	);
 
 	clsGraph.linkTemplate = go.GraphObject.make(
