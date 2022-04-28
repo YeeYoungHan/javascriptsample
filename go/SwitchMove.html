@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title>1개 이미지 크기만 수정하는 방법. JSON 저장하는 방법</title>
+	<script src="https://code.jquery.com/jquery-1.12.2.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gojs/1.6.13/go.js"></script>
+</head>
+<body>
+<div id="graph" style="width:800px; height:400px; background-color: #DAE4E4;"></div>
+<div>
+	<input type="button" onclick="GetJson()" value="GetJson">
+	<input type="button" onclick="PutJson()" value="PutJson">
+</div>
+<div>
+	<textarea id="json" rows="14" cols="100"></textarea>
+</div>
+<script>
+	var clsGraph = go.GraphObject.make( go.Diagram, "graph", { initialContentAlignment: go.Spot.Center });
+
+	clsGraph.nodeTemplate = go.GraphObject.make(
+		go.Node, "Auto",
+		go.GraphObject.make( go.Picture, { margin: 0, width: 191, height: 20, background: "red" }, new go.Binding("source"), new go.Binding("width"), new go.Binding("height") ),
+		go.GraphObject.make( go.TextBlock, "Default Text", { stroke: "white", font: "bold 16px sans-serif" }, new go.Binding("text", "key") ),
+		new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify)
+	);
+
+	clsGraph.linkTemplate = go.GraphObject.make(
+		go.Link, { routing: go.Link.Orthogonal, corner: 5 },
+		go.GraphObject.make( go.Shape, { strokeWidth: 3, stroke: "#555" } ) );
+
+	clsGraph.model = new go.GraphLinksModel( [
+		{ key:"1", source: "img/switch.png" },
+		{ key:"2", source: "img/switch.png" },
+		{ key:"3", source: "img/switch.png" },
+		{ key:"PBX", source: "img/cat1.png", width: 80, height: 80 }
+	],
+	[
+		{ from:"1", to:"2" },
+		{ from:"2", to:"3" },
+		{ from:"3", to:"1" },
+		{ from:"2", to:"PBX" }
+	]);
+
+	clsGraph.addDiagramListener( "SelectionMoved", function(event){
+		var clsNode = event.diagram.selection.first();
+
+		console.log( "key(" + clsNode.ke.key + ") x(" + clsNode.location.x + ") y(" + clsNode.location.y + ")" );
+	} );
+
+	function GetJson()
+	{
+		$('#json').text( clsGraph.model.toJson() );
+	}
+
+	function PutJson()
+	{
+		var clsJson = JSON.parse( $('#json').val() );
+
+		clsGraph.model = go.Model.fromJson( clsJson );
+
+		//clsGraph.model = new go.GraphLinksModel( clsJson.nodeDataArray, clsJson.linkDataArray );
+	}
+</script>
+</body>
+</html>
