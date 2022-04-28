@@ -22,7 +22,7 @@
 		go.Node, "Auto",
 		go.GraphObject.make( go.Picture, { margin: 0, width: 191, height: 20, background: "red" }, new go.Binding("source"), new go.Binding("width"), new go.Binding("height") ),
 		go.GraphObject.make( go.TextBlock, "Default Text", { stroke: "white", font: "bold 16px sans-serif" }, new go.Binding("text", "key") ),
-		new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify)
+		new go.Binding("position", "pos", go.Point.parse).makeTwoWay(go.Point.stringify)
 	);
 
 	clsGraph.linkTemplate = go.GraphObject.make(
@@ -49,9 +49,11 @@
 
 	function PutJson()
 	{
-		var strJson = $('#json').text();
+		var clsJson = JSON.parse( $('#json').val() );
 
-		clsGraph.model = go.Model.fromJson( strJson );
+		clsGraph.model = go.Model.fromJson( clsJson );
+
+		//clsGraph.model = new go.GraphLinksModel( clsJson.nodeDataArray, clsJson.linkDataArray );
 	}
 </script>
 </body>
