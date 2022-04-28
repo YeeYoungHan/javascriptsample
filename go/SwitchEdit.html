@@ -11,7 +11,7 @@
 	<input type="button" value="allowMove" onclick="ToggleAllowMove()">
 </div>
 <script>
-	var clsGraph = go.GraphObject.make( go.Diagram, "graph", { initialContentAlignment: go.Spot.Center, allowMove: false });
+	var clsGraph = go.GraphObject.make( go.Diagram, "graph", { initialContentAlignment: go.Spot.Center, allowMove: false, allowVerticalScroll: false, allowHorizontalScroll: false });
 
 	clsGraph.nodeTemplate = go.GraphObject.make(
 		go.Node, "Vertical",
