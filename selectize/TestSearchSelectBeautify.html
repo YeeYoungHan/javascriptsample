@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title>selectize.js - 오름차순 정렬 및 select box 변경 이벤트</title>
+	<script src="https://code.jquery.com/jquery-1.12.2.min.js"></script>
+	<script src="src/selectize-beautify.js"></script>
+	<link rel="stylesheet" href="src/selectize.css">
+</head>
+<body>
+<div style="width: 200px">
+	<select id="group" placeholder="부서를 선택하세요.">
+		<option value="1">연구소</option>
+		<option value="2">기술지원</option>
+		<option value="3">영업</option>
+		<option value="4">경영지원</option>
+		<option value="5">연구소 #2</option>
+ 		<option value="6">연구소 #3</option>
+		<option value="7">연구소 #4</option>
+		<option value="8">연구소 #5</option>
+		<option value="9">연구소 #6</option>
+		<option value="10">연구소 #7</option>
+		<option value="11">연구소 #8</option>
+		<option value="12">연구소 #9</option>
+		<option value="13">연구소 #10</option>
+		<option value="14">연구소 #11</option>
+		<option value="15">연구소 #12</option>
+	</select>
+</div>
+<div id="log">
+
+</div>
+<script>
+	$('#group').selectize({
+		create: false,
+		sortField: {
+			field: 'text',
+			direction: 'asc'
+		},
+		dropdownParent: 'body'
+	});
+
+	$("#group").change(function()
+	{
+		var iSelectedId = $( "#group" ).val();
+
+		$('#log' ).html( iSelectedId );
+	});
+</script>
+</body>
+</html>
