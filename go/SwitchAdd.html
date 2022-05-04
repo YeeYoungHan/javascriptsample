@@ -39,6 +39,7 @@
 	function AddSwitch()
 	{
 		clsGraph.model.addNodeData( { key:"" + giKey, source: "img/switch.png" } );
+		clsGraph.model.addLinkData( { from:"3", to:"" + giKey } );
 		++giKey;
 	}
 
