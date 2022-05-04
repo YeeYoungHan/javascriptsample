@@ -8,6 +8,7 @@
 <body>
 <div id="graph" style="width:800px; height:400px; background-color: #DAE4E4;"></div>
 <input type="button" value="add" onclick="AddSwitch()">
+<input type="button" value="del" onclick="DelSwitch()">
 <script>
 	var clsGraph = go.GraphObject.make( go.Diagram, "graph", { initialContentAlignment: go.Spot.Center });
 
@@ -41,6 +42,12 @@
 		clsGraph.model.addNodeData( { key:"" + giKey, source: "img/switch.png" } );
 		clsGraph.model.addLinkData( { from:"3", to:"" + giKey } );
 		++giKey;
+	}
+
+	function DelSwitch()
+	{
+		--giKey;
+		clsGraph.model.removeNodeData( { key:"" + giKey } );
 	}
 
 </script>
