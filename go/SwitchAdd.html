@@ -47,7 +47,12 @@
 	function DelSwitch()
 	{
 		--giKey;
-		clsGraph.model.removeNodeData( { key:"" + giKey } );
+		var clsNode = clsGraph.findNodeForKey( "" + giKey );
+		if( clsNode != null )
+		{
+			clsGraph.remove( clsNode );
+		}
+		//clsGraph.model.removeNodeData( { key:"" + giKey } );
 	}
 
 </script>
