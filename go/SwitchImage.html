@@ -3,6 +3,7 @@
 <head lang="en">
 	<meta charset="UTF-8">
 	<title>스위치 허브 구성도 추가/삭제</title>
+	<!--<script src="go-beautify.js"></script>-->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gojs/1.6.13/go.js"></script>
 </head>
 <body>
@@ -39,14 +40,15 @@
 		var clsNode = clsGraph.findNodeForKey( "PBX" );
 		if( clsNode != null )
 		{
-			var clsObj = clsNode.findObject( go.Picture );
+			// findObject() 메소드를 호출하면 null 이 리턴되어서 findObject 메소드 내부의 자료구조의 첫번째 항목(Picture) 객체를 가져온다.
+			//var clsObj = clsNode.findObject("Picture");
+			var clsObj = clsNode.xa.n[0];
 			if( clsObj != null )
 			{
 				clsObj.source = "img/cat1.png";
+				clsObj.width = 80;
+				clsObj.height = 80;
 			}
-
-			//clsGraph.model.setDataProperty( clsNode, "source", "img/cat1.png" );
-			//clsNode.updateTargetBindings("source");
 		}
 	}
 
