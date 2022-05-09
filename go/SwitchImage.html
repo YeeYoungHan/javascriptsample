@@ -39,8 +39,14 @@
 		var clsNode = clsGraph.findNodeForKey( "PBX" );
 		if( clsNode != null )
 		{
-			clsGraph.model.setDataProperty( clsNode, "source", "img/cat1.png" );
-			clsNode.updateTargetBindings("source");
+			var clsObj = clsNode.findObject( go.Picture );
+			if( clsObj != null )
+			{
+				clsObj.source = "img/cat1.png";
+			}
+
+			//clsGraph.model.setDataProperty( clsNode, "source", "img/cat1.png" );
+			//clsNode.updateTargetBindings("source");
 		}
 	}
 
